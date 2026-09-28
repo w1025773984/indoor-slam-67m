@@ -1,0 +1,89 @@
+# slam_toolbox 在线建图模式参数
+# 适配 67 平米家用场景
+
+slam_toolbox:
+  ros__parameters:
+
+    # ================================================
+    # Frame 配置（必须与 ROS tf 一致）
+    # ================================================
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint
+    scan_topic: /scan
+    robot_base_frame: base_footprint
+
+    # ================================================
+    # 地图参数
+    # ================================================
+    # 地图分辨率（米/像素），5cm 是家用甜区
+    resolution: 0.05
+    # 最大激光范围（A2M8 = 12m）
+    max_laser_range: 12.0
+    # 最小激光范围（雷达盲区，过滤近端噪声）
+    minimum_laser_range: 0.15
+
+    # ================================================
+    # 同步模式
+    # ================================================
+    # async 模式不强制等所有 scan，适合手持/遥控
+    minimum_time_interval: 0.5
+    # 两次处理之间的最小位移
+    minimum_travel_distance: 0.3
+    # 两次处理之间的最小转角
+    minimum_travel_heading: 0.3
+
+    # ================================================
+    # 回环检测
+    # ================================================
+    do_loop_closing: true
+    # 67 平米的家最大回环距离不超过 15m，8m 够用
+    loop_search_maximum_distance: 8.0
+    # 角度搜索范围（弧度）
+    loop_search_space_angular: 0.1
+    # 匹配阈值（放宽一点更容易回环）
+    loop_match_threshold: 0.11
+    # 回环的最大尝试次数
+    loop_maximum_attempts: 3
+    # 闭环反馈间隔
+    loop_candidate_search_size: 20
+    # 回环后应用一次最小扫描
+    do_loop_closing_apply_min: true
+
+    # ================================================
+    # 扫描匹配
+    # ================================================
+    use_scan_matching: true
+    use_scan_barycenter: true
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 12.0
+    link_scan_maximum_distance: 1.5
+
+    # ================================================
+    # 相关性扫描匹配
+    # ================================================
+    correlation_search_space: 0.5
+    correlation_search_space_z: 0.5
+    correlation_search_space_angle: 0.4
+
+    # ================================================
+    # 位姿约束
+    # ================================================
+    position_threshold: 0.2
+    angular_threshold: 0.2
+    # 位姿发布频率
+    transform_publish_period: 0.05
+
+    # ================================================
+    # 激光范围
+    # ================================================
+    minimum_angle: -3.14159
+    maximum_angle: 3.14159
+
+    # ================================================
+    # 其他
+    # ================================================
+    # 调试日志（true 时打印详细 log，false 减少噪声）
+    debug_logging: false
+    # 是否自动启动
+    autostart: true
