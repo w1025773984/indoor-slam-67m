@@ -38,6 +38,8 @@ setup(
     license='MIT',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [],
+        'console_scripts': [
+            'fake_scan_publisher = indoor_slam_67m.fake_scan_publisher:main',
+        ],
     },
 )
