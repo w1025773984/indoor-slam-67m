@@ -26,6 +26,11 @@ setup(
         # scripts
         (os.path.join('share', package_name, 'scripts'),
             glob('scripts/*.sh')),
+        # URDF（xacro 模块化）
+        (os.path.join('share', package_name, 'urdf'),
+            glob('urdf/*.xacro')),
+        (os.path.join('share', package_name, 'urdf', 'xacro'),
+            glob('urdf/xacro/*.xacro')),
         # docs（可选）
         (os.path.join('share', package_name, 'docs'),
             glob('docs/*.md')),

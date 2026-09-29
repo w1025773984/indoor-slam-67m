@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  所有几何 / 物理参数集中在这里
+  借鉴 oomwoo-one 的设计
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ===== 底盘尺寸 ===== -->
+  <xacro:property name="base_length" value="0.50"/>      <!-- 底盘长 50 cm -->
+  <xacro:property name="base_width" value="0.35"/>       <!-- 底盘宽 35 cm -->
+  <xacro:property name="base_height" value="0.12"/>      <!-- 底盘高 12 cm -->
+  <xacro:property name="base_mass" value="3.0"/>          <!-- 3 kg -->
+
+  <!-- ===== 驱动轮 ===== -->
+  <xacro:property name="wheel_radius" value="0.06"/>     <!-- 6 cm -->
+  <xacro:property name="wheel_width" value="0.04"/>      <!-- 4 cm -->
+  <xacro:property name="wheel_mass" value="0.2"/>
+
+  <!-- ===== 万向轮 ===== -->
+  <xacro:property name="caster_radius" value="0.025"/>   <!-- 2.5 cm -->
+
+  <!-- ===== 雷达 / IMU 安装位置 ===== -->
+  <xacro:property name="laser_height" value="0.30"/>     <!-- 雷达离地 30 cm -->
+  <xacro:property name="imu_height" value="0.10"/>       <!-- IMU 离地 10 cm -->
+
+  <!-- ===== bumper / safety 物理位置 ===== -->
+  <xacro:property name="bumper_height" value="0.05"/>    <!-- bumper 高度 -->
+  <xacro:property name="bumper_offset" value="${base_length/2 + 0.005}"/> <!-- bumper 在前/后底盘边缘 -->
+
+  <!-- ===== 物理常量 ===== -->
+  <xacro:property name="PI" value="3.14159265359"/>
+
+</robot>

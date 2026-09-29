@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- 传感器宏：雷达、IMU、bumper -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- 2D 激光雷达 -->
+  <xacro:macro name="laser_sensor" params="x y z">
+    <link name="laser_frame">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.04" length="0.04"/>
+        </geometry>
+        <material name="green"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.04" length="0.04"/>
+        </geometry>
+      </collision>
+      <xacro:solid_cylinder_inertia m="0.1" r="0.04" h="0.04"/>
+    </link>
+
+    <joint name="laser_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="laser_frame"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- IMU -->
+  <xacro:macro name="imu_sensor" params="x y z">
+    <link name="imu_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.02 0.005"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.02 0.005"/>
+        </geometry>
+      </collision>
+      <xacro:solid_box_inertia m="0.01" x="0.02" y="0.02" z="0.005"/>
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+</robot>

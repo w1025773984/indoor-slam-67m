@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!-- 底盘 / 驱动轮 / 万向轮宏 -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- 底盘主体（长方体） -->
+  <xacro:macro name="base_body" params="base_length base_width base_height base_mass">
+    <link name="base_link">
+      <visual>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${base_length} ${base_width} ${base_height}"/>
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${base_length} ${base_width} ${base_height}"/>
+        </geometry>
+      </collision>
+      <xacro:solid_box_inertia m="${base_mass}" x="${base_length}" y="${base_width}" z="${base_height}"/>
+    </link>
+  </xacro:macro>
+
+  <!-- 驱动轮（圆柱，轴向 = x） -->
+  <xacro:macro name="drive_wheel" params="side wheel_radius wheel_mass y_position">
+    <link name="wheel_${side}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${base_width/4}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${base_width/4}"/>
+        </geometry>
+      </collision>
+      <xacro:solid_cylinder_inertia m="${wheel_mass}" r="${wheel_radius}" h="${base_width/4}"/>
+    </link>
+
+    <joint name="wheel_${side}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="wheel_${side}_link"/>
+      <origin xyz="0 ${y_position} 0"
+              rpy="-${PI/2} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.1" friction="0.1"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- 万向轮（球） -->
+  <xacro:macro name="caster_wheel" params="position caster_radius x_position">
+    <link name="caster_${position}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${caster_radius}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${caster_radius}"/>
+        </geometry>
+      </collision>
+      <xacro:solid_sphere_inertia m="0.05" r="${caster_radius}"/>
+    </link>
+
+    <joint name="caster_${position}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="caster_${position}_link"/>
+      <origin xyz="${x_position} 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+</robot>
