@@ -1,0 +1,8 @@
+<library path="esp32_hardware">
+  <class name="esp32_hardware/ESP32HardwareInterface" type="esp32_hardware::ESP32HardwareInterface" base_class_type="hardware_interface::SystemInterface">
+    <description>
+      ESP32 micro-ROS hardware interface for ros2_control.
+      Reads joint states from /joint_states topic, publishes /cmd_vel for the ESP32 controller.
+    </description>
+  </class>
+</library>
